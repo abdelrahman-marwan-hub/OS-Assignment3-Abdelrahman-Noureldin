@@ -240,7 +240,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+i learned that synchronization is important when many threads use the same data. a race condition happens whe two threads read and change the same variable at the same time, so one update can be lost.in the starter code, my counters were wrong: context switches were 17 and not 20.i used ReentrantLock to protect the critical sections, so only one thread can enter at a time. i also  learn that unlock() must be in  finally block, because it releases the lock even if an error happens. finally, the Semaphore lets a cpu sleep and wait for a process, instead of checking the empty queue again and again.
 
 ## Question 2: What was the most challenging part of this assignment?
 
@@ -248,7 +248,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+the most challenging part was protecting the ready queue. in the starter, four cpus picked same process P1 at the same time, and Java gave an IllegalThreadStateException. it was hard because the bug is not easy to see in the code. i had to understand that poll()reads the head of the queue and removes it in two steps, so another cpu can come in the middle.  i also had to protect the list and the map, because both are shared data. after i added the lock to all four methods, every cpu picked a different process.
 
 ## Question 3: How did you overcome the challenges you faced?
 
@@ -256,7 +256,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+first, i read the code carefully and tried to understand each class. i focused on ReadyQueue and SharedStats because they have the shared data. i read the README to understand each feature before i wrote any code. i ran the starter first and saved its output so i could see the errors. then i added the features one by  onث, and i ran the program 5 times after the changes. i checked the verification block each time, and this helped me understnd how locks and semaphores work in Java.
 
 ## Question 4: Where can synchronization concepts be applied in real-world applications?
 
@@ -264,7 +264,7 @@
 
 **Your Answer:** *(5-7 sentences)*
 
-[Write your answer here.]
+synchronization is used in many real-world applications. in a banking system, a lock can protect an account balance when two people use the same account. in a ticket booking system, synchronization stops two users from booking the same seat. a printer queue is like my ready queue : many programs add jobs and the printer takes them one by one. a semaphore can count the waiting jobs, so the printer sleep when the queue is empty. these examples are similar to my assignment because many threads use shared data or resources..
 
 ### Optional: What would you like to learn more about?
 
@@ -276,7 +276,7 @@
 
 ### Optional: Feedback on the assignment
 
-[Any comments? Was it helpful? Too easy or hard? Suggestions?]
+the assignment was helpful. the starter code made the problem easy to see.
 
 ---
 
