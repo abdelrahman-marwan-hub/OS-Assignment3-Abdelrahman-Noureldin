@@ -42,7 +42,7 @@
 
 ## 🎥 Video Link
 
-**Video Link**: [Paste your video link here]
+**Video Link**: https://youtu.be/wxWa2hVEXuw?si=WO7svZEFpBMnxz3y
 
 > ⚠️ **WARNING:** The video must be **publicly accessible** ("Anyone with the link can view") on **Google Drive**, **YouTube (Unlisted or Public)** or any other cloud file-sharing system. A private, restricted or broken link counts as a **missing video (-1 mark)**.
 >
@@ -217,8 +217,8 @@ opened MY_WORK.md in vscode and updated my personal information, including my gi
 
 ---
 
-### Entry 6 - [Optional - Date and Time]
-**What I did**: 
+### Entry 6 - Optional - November 22, 2026, 10:00 AM
+**What I did**: record video 
 
 **Details**:
 
@@ -226,7 +226,7 @@ opened MY_WORK.md in vscode and updated my personal information, including my gi
 
 **Solution**:
 
-**Time spent**:
+**Time spent**: 1:30 hours
 
 ---
 
