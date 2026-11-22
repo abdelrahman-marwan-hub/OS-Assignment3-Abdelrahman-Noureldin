@@ -132,73 +132,93 @@
 
 ## Your Development Log
 
-### Entry 1 - [Date and Time]
-**What I did**:
+### Entry 1 -  November 20, 2026, 2:30 PM
+**What I did**:  i forked the repository, read the assignment files, set my student ID, and ran the starter code.
 
 **Details**:
+- i read the README and the assignment files to understand the steps.
+- i forked the starter repository to my GitHub account.
+- i set my student ID in SchedulerSimulationSync.java.
+- i ran the original starter and saved its output.
+- i made my first commit: Set my student ID.
 
-**Challenges**:
+**Challenges**:  the starter code failed. four cpus picked P1 at the same time, and i got an IllegalThreadStateException.
 
-**Solution**:
+**Solution**: i saved the output and read the code again. i found that poll() reads the head of the queue and removes it in two steps, so another cpu can come in the middle.
 
-**Time spent**:
+**Time spent**: 2 hours (2:30 PM – 4:30 PM).
 
 ---
 
-### Entry 2 - [Date and Time]
-**What I did**:
+### Entry 2 - November 22, 2026, 12:30 AM 
+**What I did**: i implemented Feature 1 to protect the ready queue with a ReentrantLock.
 
 **Details**:
+- i added a ReentrantLock to the ReadyQueue class.
+- i protected add(), poll(), processOf() and snapshot() with the lock.
+- i used try and finally, so the lock is always released.
+- i ran the program 5 times after the change.
 
-**Challenges**:
+**Challenges**: it was hard to protect poll() correctly, because several cpus use the queue at the same time.
 
-**Solution**:
+**Solution**: i used one lock to protect the queue operations, so only one thread can access the protected operations at a time. this prevented multiple cpus from accessing and changing the queue at the same time..
 
-**Time spent**:
+**Time spent**:1.5 hours (12:30 AM – 2:00 AM).
 
 ---
 
-### Entry 3 - [Date and Time]
-**What I did**:
+### Entry 3 - November 22, 2026, 2:00 AM
+**What I did**:  i implemented Feature 2 and Feature 3, made separate commits, and checked the program output.
 
 **Details**:
+- i added locks to protect the three shared statistics.
+- i used separate locks for each counter
+- i replaced the busy-waiting loop with a counting Semaphore.
+- i added the shutdown mechanism to wake up the cpus.
+- i made separate commits for Feature 2 and Feature 3.
+- i ran the program and checked the outpt after the changes
 
-**Challenges**:
+**Challenges**: i had difficulty understanding how the semaphore could replace busy waiting and how to wake up the cpus when the simulation finishes.
 
-**Solution**:
+**Solution**: i used a counting Semaphore to make the cpus wait when no processes are available. i also added a shutdown mechanism to wake up the cpus when the simulation finishes. i used locks to protect the shared statistics.
 
-**Time spent**:
+**Time spent**: 2.5 hours (2:00 AM – 4:30 AM).
 
 ---
 
-### Entry 4 - [Date and Time]
-**What I did**:
+### Entry 4 -  November 22, 2026, 4:30 AM
+**What I did**: updated my personal information in MY_WORK.md.
 
 **Details**:
+opened MY_WORK.md in vscode and updated my personal information, including my github username and repository link. then, i committed the changes.
 
-**Challenges**:
+**Challenges**: i needed to make sure that my personal information and repository link were correct.
 
-**Solution**:
+**Solution**:  i checked my information and updated the file. then, i committed the changes to github.
 
-**Time spent**:
+**Time spent**: 1 hours (4:30 AM – 5:30 AM).
 
 ---
 
-### Entry 5 - [Date and Time]
-**What I did**:
+### Entry 5 - November 22, 2026, 6:00 AM
+**What I did**:  i completed the first three parts of MY_WORK.md.
 
 **Details**:
+- i completed the development log entries.
+- i wrote the reflection answers.
+- i answered the technical questions.
+- i reviewed my answers and made some changes to improve them.
 
-**Challenges**:
+**Challenges**: it was hard to make sure that each answer covered all the required points and followed the required number of sentences.
 
-**Solution**:
+**Solution**: i checked the assignment questions and requirements carefully. i organized my answers and made sure each answer covered the main points.
 
-**Time spent**:
+**Time spent**: 4 hours (6:00 AM – 10:00 AM).
 
 ---
 
 ### Entry 6 - [Optional - Date and Time]
-**What I did**:
+**What I did**: 
 
 **Details**:
 
@@ -214,14 +234,16 @@
 
 > 💡 **TIP:** Fill this in **last**, after all entries are written.
 
-**Total time spent on assignment**: [X hours]
+**Total time spent on assignment**: 12.5 hours
 
 **Most challenging part**:
+the most challenging part was understanding the synchronization problems in the starter code and fixing them. it was difficult to protect the ready queue and understand how multiple cpus could access it at the same time.
 
 **Most interesting learning**:
+ i learned how ReentrantLock protects shared data and how a counting Semaphore can replace busy waiting. i also learned how synchronization helps prevent race conditions.
 
 **What I would do differently next time**:
-
+ i would start the assignment earlier, read the code more carefully, i would also write my development log after every work session
 ---
 
 # Part B: Reflection (0.5 mark)
@@ -298,20 +320,30 @@ the assignment was helpful. the starter code made the problem easy to see.
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+in my starter run, the verification was wrong: context switches were 17 instead of 20, completed processes were 8 instead of 10, and service time was 24053 instead of 29030. busy-waiting polls were 697. a lost update happens when two cpus read the same value before one of them writes it back. the same bug can happen on a real machine without RaceWindow, because a thread can stop between the read and the write. it is hard to find because it happens only sometimes, and the result changes in every run.
 
 Verification block of the **original starter**:
 ```
-[Paste the verification block (or the exception/watchdog message) of the starter here]
+⛔ WATCHDOG: the simulation did not finish (19 s). A process was lost, or a CPU is blocked forever, or the 'completed' counter lost an update.
+
+Context switches (quanta executed)     expected 20       observed 17       ✘ MISMATCH
+Completed processes                    expected 10       observed 8        ✘ MISMATCH
+Total service time (ms)                expected 29030    observed 24053    ✘ MISMATCH
+Busy-waiting polls (must be 0)         expected 0        observed 697      ✘ MISMATCH
+✘ At least one check failed (see the ✘ lines above): a race condition or busy waiting is still present.
 ```
 
 Verification block of **my final version**:
 ```
-[Paste the verification block of your final version here (all lines ✔)]
+Context switches (quanta executed)     expected 20       observed 20       ✔
+Completed processes                    expected 10       observed 10       ✔
+Total service time (ms)                expected 29030    observed 29030    ✔
+Busy-waiting polls (must be 0)         expected 0        observed 0        ✔
+✔ All shared values are consistent.
 ```
 
 **Explanation of the timeline:**
-[Explain the lost update step by step.]
+this is an example timeline: cpu-1 reads contextSwitchCount = 12. cpu-2 also reads 12 before cpu-1 writes. cpu-1 writes 13, then cpu-2 writes 13. two increments happened, but the counter went up only one time, so one update is lost. ReentrantLock fixes this because only one cpu can do the read and the write at a time.
 
 ## Question 2: Critical Sections and Lock Granularity
 
@@ -321,12 +353,17 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+i used queueLock for the four ReadyQueue methods, and three separate locks for the three statistics counters. i chose three locks because the counters are independent, so one update does not wait for another one, but it means more code. the queue has a different lock because it protects different data (the list and the map). a lock gives mutual exclusion because only one thread is inside the critical section, and the next thread enters when the lock is released. the default ReentrantLock is not fair, so one thread can wait longer than the others, and bounded waiting is not guaranteed.
 
 | Critical section (variable / method) | Lock used | Why it needs protection |
 |---|---|---|
-| [e.g., `ReadyQueue.poll()`] | [lock name] | [reason] |
-| [...] | [...] | [...] |
+| `ReadyQueue.add()` | `queueLock` | it adds a thread to the shared list and the map |
+| `ReadyQueue.poll()` | `queueLock` | two cpus must not read and remove the same head |
+| `ReadyQueue.processOf()` | `queueLock` | it reads the shared map |
+| `ReadyQueue.snapshot()` | `queueLock` | it loops over the list and the map |
+| `incrementContextSwitch()` and `getContextSwitchCount()` | `contextSwitchLock` | it protects the `contextSwitchCount` counter |
+| `incrementCompletedProcess()` and `getCompletedProcessCount()` | `completedProcessLock` | it protects the `completedProcessCount` counter |
+| `addServiceTime()` and `getTotalServiceTime()` | `serviceTimeLock` | it protects the `totalServiceTime` value |
 
 ## Question 3: Busy Waiting vs Semaphore
 
@@ -336,7 +373,7 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
-[Write your answer here.]
+in the starter, a cpu checked the empty queue and slept 20 ms again and again, and this gave 697 busy-waiting polls. my semaphore value is the number of processes waiting in the ready queue. its initial value is  0 because the queue is empty at the start, and after the 10 add() calls it is 10. at the end, the last cpu calls wakeUpCPUs(),  which releases totalCPUs permits. without this, the other cpus stay blocked in acquire() forevr and the watchdog stops the program.
 
 ## Question 4: Classical Problems and Deadlock
 
@@ -346,25 +383,28 @@ Verification block of **my final version**:
 
 **Your Answer:** *(3-5 sentences)*
 
+this is the producer-consumer problem (bounded buffer). the 
+producers are main and the cpus that put an unfinished process back in the queue, and the consumers are the cpus that take a process with poll(). for a bounded queue of size K, i need three semaphores: empty, full and mutex. a deadlock can happen if a thread takes the mutex before it waits on a semaphore. to prevent it, i break the hold and wait condition.
+
 **Classical problem and roles**:
-[Name the problem; who is the producer, who is the consumer?]
+producer-consumer (bounded buffer) . producers: main and the cpus that add an unfinished process back. consumers: the cpus that take a process from  the queue
 
 **Semaphores for a bounded queue (name and initial value)**:
-[Name the three semaphores and their initial values.]
+empty = K (free places), full = 0 (processes in the queue), mutex = 1 (one thread at a time).
 
 **Deadlock scenario and prevention**:
-[Describe the scenario and the necessary condition you would break.]
+a producer takes the mutex, then waits for empty  because the queue is full. a consumer needs the mutex to remove a process, so it cannot free a place. both wait forever. to prevent this, i break the hold and wait condition: the producer waits for empty first, and takes the mutex after.
 
 ## Summary
 
 **Key concepts I understood through these questions:**
-1.
-2.
-3.
+1.a race condition happens when two threads read and write the same data, and one update can be lost. a ReentrantLock with try/finally fixes it.
+2.a counting semaphore makes a cpu sleep when the queue is empty, so there is no busy waiting. the last cpu must wake up the others to shut down.
+3.the ready queue and the cpus are a producer-consumer problem.
 
 **Concepts I need to study more:**
-1.
-2.
+1.deadlock and the four necessary conditions.
+2.fairness and bounded waiting with locks.
 
 ---
 
